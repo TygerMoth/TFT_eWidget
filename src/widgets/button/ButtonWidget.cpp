@@ -52,8 +52,9 @@ void ButtonWidget::initButtonUL(int16_t x1, int16_t y1, uint16_t w, uint16_t h, 
 // Adjust text datum and x, y deltas
 void ButtonWidget::setLabelDatum(int16_t x_delta, int16_t y_delta, uint8_t datum)
 {
+  int16_t _yd_min = 5; // added int16_t vartiable _yd_min = 5, for minimum of 12 px height buttons
   _xd        = x_delta;
-  _yd        = y_delta;
+  _yd        = max(y_delta, _yd_min); // changed from y_delta to max(y_delta, _yd_min)
   _textdatum = datum;
 }
 
@@ -93,9 +94,9 @@ void ButtonWidget::drawButton(bool inverted, String long_name) {
     _tft->setTextPadding(0);
 
     if (long_name == "")
-      _tft->drawString(_label, _x1 + (_w/2) + _xd, _y1 + (_h/2) - 4 + _yd);
+      _tft->drawString(_label, _x1 + (_w/2) + _xd, _y1 + (_h/2) + _yd); // changed from (_h/2) - 4 + _yd to (_h/2) - 4 + _yd
     else
-      _tft->drawString(long_name, _x1 + (_w/2) + _xd, _y1 + (_h/2) - 4 + _yd);
+      _tft->drawString(long_name, _x1 + (_w/2) + _xd, _y1 + (_h/2) + _yd); // after the change above to _yd = min(..., 5)
 
     _tft->setTextDatum(tempdatum);
     _tft->setTextPadding(tempPadding);
@@ -139,9 +140,9 @@ void ButtonWidget::drawSmoothButton(bool inverted, int16_t outlinewidth, uint32_
     _tft->setTextPadding(0);
 
     if (long_name == "")
-      _tft->drawString(_label, _x1 + (_w/2) + _xd, _y1 + (_h/2) - 4 + _yd);
+      _tft->drawString(_label, _x1 + (_w/2) + _xd, _y1 + (_h/2) + _yd); // changed from (_h/2) - 4 + _yd to (_h/2) - 4 + _yd
     else
-      _tft->drawString(long_name, _x1 + (_w/2) + _xd, _y1 + (_h/2) - 4 + _yd);
+      _tft->drawString(long_name, _x1 + (_w/2) + _xd, _y1 + (_h/2) + _yd); // after the change above to _yd = min(..., 5)
 
     _tft->setTextDatum(tempdatum);
     _tft->setTextPadding(tempPadding);
