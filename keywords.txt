@@ -7,6 +7,12 @@ initButton	KEYWORD2
 initButtonUL	KEYWORD2
 setLabelDatum	KEYWORD2
 drawButton	KEYWORD2
+enable	KEYWORD2
+disable	KEYWORD2
+show	KEYWORD2
+hide	KEYWORD2
+toggleEnabled	KEYWORD2
+toggleVisible	KEYWORD2
 contains	KEYWORD2
 press	KEYWORD2
 isPressed	KEYWORD2
@@ -22,6 +28,9 @@ getPressTime	KEYWORD2
 getReleaseTime	KEYWORD2
 
 drawSmoothButton	KEYWORD2
+redraw	KEYWORD2
+redrawDisabled	KEYWORD2
+redrawDisabledInternal	KEYWORD2
 getState	KEYWORD2
 
 
