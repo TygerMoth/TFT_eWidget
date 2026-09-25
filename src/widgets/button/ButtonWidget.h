@@ -10,6 +10,12 @@
 //
 // The library uses functions present in TFT_eSPI
 // https://github.com/Bodmer/TFT_eSPI
+****************************************************************************************
+*** Modified label datum calculation of _yd to allow button heights as small as 12 px
+*** Added Enabled, Visible and Smooth states,
+*** with enable(), disable(), show(), hide() and added redraw() methods,
+*** and modification to contains() method to process only enabled and visible buttons.
+*** Modified Sep 23, 2026 - Larry Coffey
 ***************************************************************************************/
 #ifndef _ButtonWidgetH_
 #define _ButtonWidgetH_
@@ -54,7 +60,13 @@ class ButtonWidget : public TFT_eSPI {
 
   void     drawButton(bool inverted = false, String long_name = "");
   void     drawSmoothButton(bool inverted = false, int16_t outlinewidth = -1, uint32_t bgcolor = 0x00FFFFFF, String long_name = "");
-  bool     contains(int16_t x, int16_t y);
+  void     enable(void);
+  void     disable(void);
+  void     show(void);
+  void     hide(void);
+  void     erase(void);
+  void     toggleEnabled(void);
+  void     toggleVisible(void);bool     contains(int16_t x, int16_t y);
 
   void     press(bool p);
   bool     isPressed();
@@ -73,7 +85,10 @@ class ButtonWidget : public TFT_eSPI {
   uint16_t _outlinecolor, _fillcolor, _textcolor, _outlinewidth, _bgcolor;
   char     _label[10]; // Button text is 9 chars maximum unless long_name used
   uint32_t _pressTime, _releaseTime;
-  bool  _inverted, _currstate, _laststate; // Button states
+  bool  _inverted, _currstate, _laststate, _enblstate, _vsblstate, _smthstate; // Button states ee,vs, and sm added Sept 23, 2026 LC
+  void     redrawDisabled(void);
+  void     redrawDisabledInternal(void);
+  void     redraw(void);
 };
 
 #endif
